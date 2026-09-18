@@ -1,0 +1,10 @@
+node_modules/
+*.tsbuildinfo
+*.tgz
+
+.env
+.env.*
+!.env.example
+
+.aki/
+*.log

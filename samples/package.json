@@ -1,0 +1,22 @@
+{
+  "name": "aki-examples",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Worked examples for @tym17/aki: agents, tools, streaming, structured output, retrieval, evals and benchmarking — all runnable offline.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "scripts": {
+    "example": "node --experimental-strip-types examples/run.ts",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tym17/aki": "file:.."
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}

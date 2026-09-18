@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= title %></title>
+    <style>
+      /* highlight.js — Nord */
+      <%- themeCss %>
+    </style>
+    <style>
+        :root {
+          --ink: #cfe9f2;
+          --ink-soft: #4f7385;
+          --paper: #06090d;
+          --rule: #183642;
+          --link: #6fc3df;
+          --accent: #6fc3df;
+          --measure: 46rem;
+          --mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+        }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 3.5rem 1.5rem 6rem;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      main {
+        max-width: var(--measure);
+        margin: 0 auto;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.25;
+        margin: 2.5em 0 0.6em;
+        font-weight: 600;
+      }
+
+      h1 {
+        margin-top: 2rem;
+        font-size: 25px;
+        letter-spacing: -0.015em;
+      }
+
+      h1::after {
+        content: '';
+        display: block;
+        width: 3.5rem;
+        height: 3px;
+        margin-top: 1.1rem;
+        background: var(--accent);
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+      h3 {
+        font-size: 16px;
+      }
+      h4 {
+        font-size: 14px;
+      }
+
+      p,
+      ul,
+      ol,
+      table,
+      blockquote,
+      pre {
+        margin: 0 0 1.25em;
+      }
+
+      a {
+        color: var(--link);
+        text-underline-offset: 0.15em;
+      }
+
+      strong {
+        font-weight: 700;
+      }
+
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 3em 0;
+      }
+
+      blockquote {
+        margin-left: 0;
+        padding: 0.1em 0 0 1.25rem;
+        border-left: 3px solid var(--accent);
+        color: var(--ink-soft);
+      }
+
+      li {
+        margin-bottom: 0.35em;
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+        font-size: 0.9em;
+      }
+
+      /* Inline code only — block code is styled by the Nord stylesheet. */
+      :not(pre) > code {
+        padding: 0.15em 0.4em;
+        border-radius: 3px;
+        background: rgba(136, 192, 208, 0.18);
+        color: var(--ink);
+      }
+
+      pre {
+        padding: 1.1rem 1.25rem;
+        border-radius: 6px;
+        overflow-x: auto;
+        line-height: 1.55;
+      }
+
+      pre code.hljs {
+        border: 1px #88c0d0 solid;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95em;
+      }
+
+      th,
+      td {
+        padding: 0.5em 0.75em;
+        border-bottom: 1px solid var(--rule);
+        text-align: left;
+      }
+
+      th {
+        font-weight: 300;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <main><%- content %></main>
+  </body>
+</html>

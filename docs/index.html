@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>aki, tiny library for (mostly) local agents</title>
+    <style>
+      /* highlight.js — Nord */
+      pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*
+ * Copyright (c) 2017-present Arctic Ice Studio <development@arcticicestudio.com>
+ * Copyright (c) 2017-present Sven Greb <development@svengreb.de>
+ *
+ * Project:    Nord highlight.js
+ * Version:    0.1.0
+ * Repository: https://github.com/arcticicestudio/nord-highlightjs
+ * License:    MIT
+ * References:
+ *   https://github.com/arcticicestudio/nord
+ */
+/*
+
+Polar Night
+
+#2E3440
+#3B4252
+#434C5E
+#4C566A
+
+Snow Storm
+
+#D8DEE9
+#E5E9F0
+#ECEFF4
+
+Frost
+
+#8FBCBB
+#88C0D0
+#81A1C1
+#5E81AC
+
+Aurora
+
+#BF616A
+#D08770
+#EBCB8B
+#A3BE8C
+#B48EAD
+
+*/
+.hljs {
+  background: #2E3440
+}
+.hljs,
+.hljs-subst {
+  color: #D8DEE9
+}
+.hljs-selector-tag {
+  color: #81A1C1
+}
+.hljs-selector-id {
+  color: #8FBCBB;
+  font-weight: bold
+}
+.hljs-selector-class {
+  color: #8FBCBB
+}
+.hljs-selector-attr {
+  color: #8FBCBB
+}
+.hljs-property {
+  color: #88C0D0
+}
+.hljs-selector-pseudo {
+  color: #88C0D0
+}
+.hljs-addition {
+  background-color: rgba(163, 190, 140, 0.5)
+}
+.hljs-deletion {
+  background-color: rgba(191, 97, 106, 0.5)
+}
+.hljs-built_in,
+.hljs-type {
+  color: #8FBCBB
+}
+.hljs-class {
+  color: #8FBCBB
+}
+.hljs-function {
+  color: #88C0D0
+}
+.hljs-title.hljs-function,
+.hljs-function > .hljs-title {
+  color: #88C0D0
+}
+.hljs-keyword,
+.hljs-literal,
+.hljs-symbol {
+  color: #81A1C1
+}
+.hljs-number {
+  color: #B48EAD
+}
+.hljs-regexp {
+  color: #EBCB8B
+}
+.hljs-string {
+  color: #A3BE8C
+}
+.hljs-title {
+  color: #8FBCBB
+}
+.hljs-params {
+  color: #D8DEE9
+}
+.hljs-bullet {
+  color: #81A1C1
+}
+.hljs-code {
+  color: #8FBCBB
+}
+.hljs-emphasis {
+  font-style: italic
+}
+.hljs-formula {
+  color: #8FBCBB
+}
+.hljs-strong {
+  font-weight: bold
+}
+.hljs-link:hover {
+  text-decoration: underline
+}
+.hljs-quote {
+  color: #4C566A
+}
+.hljs-comment {
+  color: #4C566A
+}
+.hljs-doctag {
+  color: #8FBCBB
+}
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: #5E81AC
+}
+.hljs-meta .hljs-string {
+  color: #A3BE8C
+}
+.hljs-attr {
+  color: #8FBCBB
+}
+.hljs-attribute {
+  color: #D8DEE9
+}
+.hljs-name {
+  color: #81A1C1
+}
+.hljs-section {
+  color: #88C0D0
+}
+.hljs-tag {
+  color: #81A1C1
+}
+.hljs-variable {
+  color: #D8DEE9
+}
+.hljs-template-variable {
+  color: #D8DEE9
+}
+.hljs-template-tag {
+  color: #5E81AC
+}
+/* per language customizations */
+.language-abnf .hljs-attribute {
+  color: #88C0D0
+}
+.language-abnf .hljs-symbol {
+  color: #EBCB8B
+}
+.language-apache .hljs-attribute {
+  color: #88C0D0
+}
+.language-apache .hljs-section {
+  color: #81A1C1
+}
+.language-arduino .hljs-built_in {
+  color: #88C0D0
+}
+.language-aspectj .hljs-meta {
+  color: #D08770
+}
+.language-aspectj > .hljs-title {
+  color: #88C0D0
+}
+.language-bnf .hljs-attribute {
+  color: #8FBCBB
+}
+.language-clojure .hljs-name {
+  color: #88C0D0
+}
+.language-clojure .hljs-symbol {
+  color: #EBCB8B
+}
+.language-coq .hljs-built_in {
+  color: #88C0D0
+}
+.language-cpp .hljs-meta .hljs-string {
+  color: #8FBCBB
+}
+.language-css .hljs-built_in {
+  color: #88C0D0
+}
+.language-css .hljs-keyword {
+  color: #D08770
+}
+.language-diff .hljs-meta {
+  color: #8FBCBB
+}
+.language-ebnf .hljs-attribute {
+  color: #8FBCBB
+}
+.language-glsl .hljs-built_in {
+  color: #88C0D0
+}
+.language-groovy .hljs-meta:not(:first-child) {
+  color: #D08770
+}
+.language-haxe .hljs-meta {
+  color: #D08770
+}
+.language-java .hljs-meta {
+  color: #D08770
+}
+.language-ldif .hljs-attribute {
+  color: #8FBCBB
+}
+.language-lisp .hljs-name {
+  color: #88C0D0
+}
+.language-lua .hljs-built_in {
+  color: #88C0D0
+}
+.language-moonscript .hljs-built_in {
+  color: #88C0D0
+}
+.language-nginx .hljs-attribute {
+  color: #88C0D0
+}
+.language-nginx .hljs-section {
+  color: #5E81AC
+}
+.language-pf .hljs-built_in {
+  color: #88C0D0
+}
+.language-processing .hljs-built_in {
+  color: #88C0D0
+}
+.language-scss .hljs-keyword {
+  color: #81A1C1
+}
+.language-stylus .hljs-keyword {
+  color: #81A1C1
+}
+.language-swift .hljs-meta {
+  color: #D08770
+}
+.language-vim .hljs-built_in {
+  color: #88C0D0;
+  font-style: italic
+}
+.language-yaml .hljs-meta {
+  color: #D08770
+}
+    </style>
+    <style>
+        :root {
+          --ink: #cfe9f2;
+          --ink-soft: #4f7385;
+          --paper: #06090d;
+          --rule: #183642;
+          --link: #6fc3df;
+          --accent: #6fc3df;
+          --measure: 46rem;
+          --mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+        }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 3.5rem 1.5rem 6rem;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      main {
+        max-width: var(--measure);
+        margin: 0 auto;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.25;
+        margin: 2.5em 0 0.6em;
+        font-weight: 600;
+      }
+
+      h1 {
+        margin-top: 2rem;
+        font-size: 25px;
+        letter-spacing: -0.015em;
+      }
+
+      h1::after {
+        content: '';
+        display: block;
+        width: 3.5rem;
+        height: 3px;
+        margin-top: 1.1rem;
+        background: var(--accent);
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+      h3 {
+        font-size: 16px;
+      }
+      h4 {
+        font-size: 14px;
+      }
+
+      p,
+      ul,
+      ol,
+      table,
+      blockquote,
+      pre {
+        margin: 0 0 1.25em;
+      }
+
+      a {
+        color: var(--link);
+        text-underline-offset: 0.15em;
+      }
+
+      strong {
+        font-weight: 700;
+      }
+
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 3em 0;
+      }
+
+      blockquote {
+        margin-left: 0;
+        padding: 0.1em 0 0 1.25rem;
+        border-left: 3px solid var(--accent);
+        color: var(--ink-soft);
+      }
+
+      li {
+        margin-bottom: 0.35em;
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+        font-size: 0.9em;
+      }
+
+      /* Inline code only — block code is styled by the Nord stylesheet. */
+      :not(pre) > code {
+        padding: 0.15em 0.4em;
+        border-radius: 3px;
+        background: rgba(136, 192, 208, 0.18);
+        color: var(--ink);
+      }
+
+      pre {
+        padding: 1.1rem 1.25rem;
+        border-radius: 6px;
+        overflow-x: auto;
+        line-height: 1.55;
+      }
+
+      pre code.hljs {
+        border: 1px #88c0d0 solid;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95em;
+      }
+
+      th,
+      td {
+        padding: 0.5em 0.75em;
+        border-bottom: 1px solid var(--rule);
+        text-align: left;
+      }
+
+      th {
+        font-weight: 300;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <main><h1>aki, tiny library for (mostly) local agents</h1>
+<p>This tiny library has been mostly created to speed up bootstrapping agents. Its focused on llama.cpp and tiny models. The goal is to have something ultra tiny and easily importable in environments requiring low dependencies. There are two aspects, the agentic side and the eval side. Use which ever part you need more alone or together, for testing one another or both working toward a goal. </p>
+<blockquote>
+<p>Help your CLI get more clues about digital Jazz or something. :)</p>
+</blockquote>
+<p>This project is mostly a week-end and hobby <strong>work in progress</strong> project. As such, it may not have a very stable API and may break here and there as iteration speed is prioritized. </p>
+<p>Any contributions are welcome!</p>
+<h2>Getting started</h2>
+<p>Grab the package: </p>
+<pre><code class="hljs language-shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">npm install @tym17/aki</span></code></pre>
+<p>Once installed, few lines of code to bootstrap the agent and its tools:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Agent</span>, tool } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@tym17/aki&quot;</span>;
+<span class="hljs-keyword">import</span> { readdir } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;node:fs/promises&quot;</span>;
+
+<span class="hljs-keyword">const</span> listDir = <span class="hljs-title function_">tool</span>({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;list_dir&quot;</span>,
+  <span class="hljs-attr">description</span>: <span class="hljs-string">&quot;List the entries of a directory.&quot;</span>,
+  <span class="hljs-attr">parameters</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;object&quot;</span>,
+    <span class="hljs-attr">properties</span>: { <span class="hljs-attr">path</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;string&quot;</span> } },
+    <span class="hljs-attr">required</span>: [<span class="hljs-string">&quot;path&quot;</span>],
+  },
+  <span class="hljs-comment">// `path` is typed string, inferred from the schema literal above.</span>
+  <span class="hljs-attr">execute</span>: <span class="hljs-function">(<span class="hljs-params">{ path }</span>) =&gt;</span> <span class="hljs-title function_">readdir</span>(path),
+});
+
+<span class="hljs-keyword">const</span> agent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Agent</span>({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;http://127.0.0.1:8080&quot;</span>,
+  <span class="hljs-attr">system</span>: <span class="hljs-string">&quot;You are terse. Use the tools before answering; never guess.&quot;</span>,
+  <span class="hljs-attr">tools</span>: [listDir],
+});
+
+<span class="hljs-keyword">const</span> { text } = <span class="hljs-keyword">await</span> agent.<span class="hljs-title function_">run</span>(<span class="hljs-string">&quot;What is in ./src?&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(text);</code></pre>
+<h2>What&#39;s inside</h2>
+<h3>Tools are typed from their schema</h3>
+<p>One schema does two jobs: it constrains the model and types the handler. No
+<code>as const</code>, no zod, nothing declared twice.</p>
+<pre><code class="hljs language-ts"><span class="hljs-attr">parameters</span>: {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;object&quot;</span>,
+  <span class="hljs-attr">properties</span>: { <span class="hljs-attr">mount</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;string&quot;</span> } },
+  <span class="hljs-attr">required</span>: [<span class="hljs-string">&quot;mount&quot;</span>],
+},
+<span class="hljs-attr">execute</span>: <span class="hljs-function">(<span class="hljs-params">{ mount }</span>) =&gt;</span> <span class="hljs-title function_">statfsSync</span>(mount).<span class="hljs-property">bfree</span> * <span class="hljs-number">4096</span> / <span class="hljs-number">1e9</span>,
+<span class="hljs-comment">//         ^? string</span></code></pre>
+<p>Tools never throw the loop out: an unknown tool, malformed arguments or a
+crashing handler all come back as readable text in a <code>tool</code> message, which is
+what lets a small local model notice and retry.</p>
+<h3>Structured output</h3>
+<p><code>json()</code> uses grammar-constrained decoding</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> commit = <span class="hljs-keyword">await</span> llama.<span class="hljs-property">json</span>&lt;{ <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">subject</span>: <span class="hljs-built_in">string</span> }&gt;(messages, {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;object&quot;</span>,
+  <span class="hljs-attr">properties</span>: {
+    <span class="hljs-attr">type</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;string&quot;</span>, <span class="hljs-attr">enum</span>: [<span class="hljs-string">&quot;feat&quot;</span>, <span class="hljs-string">&quot;fix&quot;</span>, <span class="hljs-string">&quot;docs&quot;</span>] },
+    <span class="hljs-attr">subject</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;string&quot;</span>, <span class="hljs-attr">maxLength</span>: <span class="hljs-number">72</span> },
+  },
+  <span class="hljs-attr">required</span>: [<span class="hljs-string">&quot;type&quot;</span>, <span class="hljs-string">&quot;subject&quot;</span>],
+});</code></pre>
+<h3>Eval helpers</h3>
+<p>Eventually, you might want to be sure that your prompts and local model choices are aligned with what you&#39;re doing. Running some tests can help you pin point where things might take a weird turn. </p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> <span class="hljs-attr">suites</span>: <span class="hljs-title class_">EvalSuite</span>[] = [
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;core&quot;</span>,
+    <span class="hljs-attr">cases</span>: [
+      {
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;does arithmetic&quot;</span>,
+        <span class="hljs-attr">prompt</span>: <span class="hljs-string">&quot;12 * 12? Number only.&quot;</span>,
+        <span class="hljs-attr">expect</span>: <span class="hljs-title function_">contains</span>(<span class="hljs-string">&quot;144&quot;</span>)
+      },
+      {
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;uses the tool&quot;</span>,
+        <span class="hljs-attr">prompt</span>: <span class="hljs-string">&quot;how many lines has the file README.md?&quot;</span>,
+        <span class="hljs-attr">expect</span>: [ <span class="hljs-title function_">usesTools</span>(<span class="hljs-string">&quot;count_lines&quot;</span>), <span class="hljs-title function_">contains</span>(<span class="hljs-string">&#x27;128&#x27;</span>) ],
+        <span class="hljs-attr">options</span>: { <span class="hljs-attr">tools</span>: [countLines] }
+      },
+    ],
+  },
+];</code></pre>
+<blockquote>
+<p>Particularly helpful if you forget to change the description/name of a tool and the big model gets confused and iterates on a simple task for 5 minutes when most smaller models get it done in less than a minute.</p>
+</blockquote>
+<p>This part of the lib allows you to build a benchmark to test your prompts and fine tune your local installation so your model pick and configuration works well for you. </p>
+<h3>Testing without a model</h3>
+<p>Faster iteration when the model&#39;s response is not directly the main focus.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { fakeServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@tym17/aki/fake&quot;</span>;
+
+<span class="hljs-keyword">const</span> fake = <span class="hljs-title function_">fakeServer</span>([
+  { <span class="hljs-attr">toolCalls</span>: [{ <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;add&quot;</span>, <span class="hljs-attr">arguments</span>: { <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">3</span> } }] },
+  { <span class="hljs-attr">content</span>: <span class="hljs-string">&quot;5&quot;</span> },
+]);
+
+<span class="hljs-keyword">const</span> agent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Agent</span>({ <span class="hljs-attr">client</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">LlamaClient</span>({ <span class="hljs-attr">fetch</span>: fake.<span class="hljs-property">fetch</span> }), tools });
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> agent.<span class="hljs-title function_">run</span>(<span class="hljs-string">&quot;2 + 3?&quot;</span>);</code></pre>
+<h2>Samples</h2>
+<p>Small examples of usages of the lib might be more helpful to see how you can interact with it. Head to the <code>samples</code> folder, runs against both a fake server and your local install.</p>
+<p>It has more examples like this:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">const</span> agent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Agent</span>({
+  <span class="hljs-attr">client</span>: <span class="hljs-title function_">clientFor</span>(fake),
+  <span class="hljs-attr">tools</span>: [countLines],
+  <span class="hljs-attr">onEvent</span>: <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (event.<span class="hljs-property">type</span> === <span class="hljs-string">&quot;tool_call&quot;</span>) <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`  → <span class="hljs-subst">${event.call.<span class="hljs-keyword">function</span>.name}</span>(<span class="hljs-subst">${event.call.<span class="hljs-keyword">function</span>.<span class="hljs-variable language_">arguments</span>}</span>)`</span>);
+    <span class="hljs-keyword">if</span> (event.<span class="hljs-property">type</span> === <span class="hljs-string">&quot;tool_result&quot;</span>) <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`  ← <span class="hljs-subst">${event.content}</span>`</span>);
+  },
+});
+
+<span class="hljs-keyword">const</span> { text } = <span class="hljs-keyword">await</span> agent.<span class="hljs-title function_">run</span>(<span class="hljs-string">&quot;How long is the readme?&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`answer: <span class="hljs-subst">${text}</span>`</span>);
+<span class="hljs-comment">// ...</span></code></pre>
+<h2>Compatibility</h2>
+<p>The wire format <em>should</em> be similar to OpenAI chat completions (<code>POST /v1/chat/completions</code>,
+<code>Authorization: Bearer</code>), so <code>url</code> can point at more than llama.cpp:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th><code>url</code></th>
+<th>Notes</th>
+<th>Tested</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>llama-server</code></td>
+<td><code>http://127.0.0.1:8080</code></td>
+<td>everything works, including <code>json()</code> and tok/s from <code>timings</code></td>
+<td>√</td>
+</tr>
+<tr>
+<td>OpenRouter</td>
+<td><code>https://openrouter.ai/api</code></td>
+<td>set <code>defaults.model</code>; <code>json()</code> works where the model supports it</td>
+<td>x</td>
+</tr>
+<tr>
+<td>Anthropic (OpenAI-compat)</td>
+<td><code>https://api.anthropic.com</code></td>
+<td>set <code>defaults.model</code>; <code>response_format</code> is ignored, so <code>json()</code> degrades to prose</td>
+<td>x</td>
+</tr>
+</tbody></table>
+<p>Three caveats away from llama.cpp: <code>model</code> becomes required. As most of this tiny library is llm generated despite heavy human review and tinkering and I only need it to work for local agents for now, it has only been tested for such purposes. If you happen to test it for one of these or another, any pull request to tick one of the tested boxes would be appreciated :). </p>
+<h2>Notes</h2>
+<ul>
+<li>Some of the code is still a work in progress and has not been tested yet</li>
+<li><code>cache_prompt</code> is on by default — reusing the KV cache across turns is most of
+the speed in an agent loop, so keep one client per process.</li>
+</ul>
+<h2>License</h2>
+<p>MIT</p>
+</main>
+  </body>
+</html>

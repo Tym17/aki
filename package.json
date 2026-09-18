@@ -1,0 +1,60 @@
+{
+  "name": "@tym17/aki",
+  "version": "0.1.0",
+  "description": "A small framework for agents on an OpenAI-compatible chat completions server: client, typed tools, agent loop, evals",
+  "license": "MIT",
+  "author": "Tym17",
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./fake": {
+      "types": "./dist/fake.d.ts",
+      "default": "./dist/fake.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "check": "npx tsc --noEmit",
+    "build": "npx tsc -p tsconfig.build.json",
+    "clean": "node --eval \"fs.rmSync('dist',{recursive:true,force:true})\"",
+    "docs": "node scripts/render.js README.md scripts/page.ejs docs/index.html",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "ejs": "^6.0.1",
+    "highlight.js": "^11.12.0",
+    "marked": "^18.0.12",
+    "typescript": "^5.7.0"
+  },
+  "keywords": [
+    "llm",
+    "agent",
+    "agents",
+    "tool-use",
+    "llama.cpp",
+    "llama-server",
+    "openai-compatible",
+    "eval"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tym17/aki.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
