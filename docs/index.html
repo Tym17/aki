@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>aki, tiny library for (mostly) local agents</title>
+    <title>Aki, tiny library for (mostly) local agents</title>
     <style>
       /* highlight.js — Nord */
       pre code.hljs {
@@ -437,7 +437,7 @@ Aurora
     </style>
   </head>
   <body>
-    <main><h1>aki, tiny library for (mostly) local agents</h1>
+    <main><h1>Aki, tiny library for (mostly) local agents</h1>
 <p>This tiny library has been mostly created to speed up bootstrapping agents. Its focused on llama.cpp and tiny models. The goal is to have something ultra tiny and easily importable in environments requiring low dependencies. There are two aspects, the agentic side and the eval side. Use which ever part you need more alone or together, for testing one another or both working toward a goal. </p>
 <blockquote>
 <p>Help your CLI get more clues about digital Jazz or something. :)</p>
@@ -473,8 +473,7 @@ Aurora
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(text);</code></pre>
 <h2>What&#39;s inside</h2>
 <h3>Tools are typed from their schema</h3>
-<p>One schema does two jobs: it constrains the model and types the handler. No
-<code>as const</code>, no zod, nothing declared twice.</p>
+<p>One schema does two jobs: it constrains the model and types the handler. </p>
 <pre><code class="hljs language-ts"><span class="hljs-attr">parameters</span>: {
   <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;object&quot;</span>,
   <span class="hljs-attr">properties</span>: { <span class="hljs-attr">mount</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;string&quot;</span> } },
@@ -581,7 +580,7 @@ what lets a small local model notice and retry.</p>
 <h2>Notes</h2>
 <ul>
 <li>Some of the code is still a work in progress and has not been tested yet</li>
-<li><code>cache_prompt</code> is on by default — reusing the KV cache across turns is most of
+<li><code>cache_prompt</code> is on by default, reusing the KV cache across turns is most of
 the speed in an agent loop, so keep one client per process.</li>
 </ul>
 <h2>License</h2>
